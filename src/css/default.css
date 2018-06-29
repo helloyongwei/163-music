@@ -10,23 +10,27 @@
 
 .page > aside {
     width: 200px;
-    border: 1px solid red;
 }
 
 .page > main {
     flex-grow: 1;
-    border: 1px solid green;
+    padding: 40px;
 }
 
-
+/* aside */
 .page > aside {
     display: flex;
     flex-direction: column;
+}
+.newSong {
+    padding: 20px;
+    font-size: 30px;
 }
 .songList{
     flex-grow: 1;
     text-align: left;
     border-top: 1px solid #999;
+    
 }
 
 .songList > li {
@@ -53,4 +57,26 @@
 
 .uploadArea > .draggable > .clickable {
     cursor: pointer;
+}
+
+/* mian */
+
+main {
+    background: #d4d4d4;
+}
+
+main > form > .song {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+main > form > .row {
+    padding: 10px;
+}
+
+main > form > .row input[type='submit'] {
+    border: 1px solid white;
+    background: white;
+    border-radius: 20%;
+    padding: 5px 10px;
 }
