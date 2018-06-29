@@ -2,6 +2,7 @@ var http = require('http')
 var fs = require('fs')
 var url = require('url')
 var port = process.argv[2]
+var qiniu = require('qiniu')
 
 if(!port){
   console.log('请指定端口号好不啦？\nnode server.js 8888 这样不会吗？')
@@ -20,12 +21,25 @@ var server = http.createServer(function(request, response){
   /******** 从这里开始看，上面不要看 ************/
 
   console.log('HTTP 路径为\n' + path)
-  if(path == '/uptoke'){
+  if(path == '/uptoken'){
     response.setHeader('Content-Type', 'text/css; charset=utf-8')
     response.setHeader('Access-Control-Allow-Origin', '*')
     response.removeHeader('Date')
-    
-    //write code
+    var config = fs.readFileSync('./qiniu-key.json')
+    config = JSON.parse(config)
+    var {accessKey ,secretKey} = config;
+    var mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
+    var options = {
+      
+      scope: "163-music",
+    };
+    var putPolicy = new qiniu.rs.PutPolicy(options);
+    var uploadToken=putPolicy.uploadToken(mac);
+    response.write(`
+      {
+        "uptoken": "${uploadToken}"
+      }
+    `)
 
     response.end()
   }else{
