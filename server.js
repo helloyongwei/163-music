@@ -11,7 +11,7 @@ if(!port){
 
 var server = http.createServer(function(request, response){
   var parsedUrl = url.parse(request.url, true)
-  var path = request.url 
+  var path = request.url
   var query = ''
   if(path.indexOf('?') >= 0){ query = path.substring(path.indexOf('?')) }
   var pathNoQuery = parsedUrl.pathname
@@ -30,7 +30,7 @@ var server = http.createServer(function(request, response){
     var {accessKey ,secretKey} = config;
     var mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
     var options = {
-      
+
       scope: "163-music",
     };
     var putPolicy = new qiniu.rs.PutPolicy(options);

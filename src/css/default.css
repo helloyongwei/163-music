@@ -26,8 +26,10 @@
     padding: 20px;
     font-size: 30px;
 }
-.songList{
+#songList-container {
     flex-grow: 1;
+}
+.songList{
     text-align: left;
     border-top: 1px solid #999;
     
