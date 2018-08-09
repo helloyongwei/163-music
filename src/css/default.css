@@ -26,6 +26,9 @@
     padding: 20px;
     font-size: 30px;
 }
+.newSong.active {
+    background: #d4d4d4;
+}
 #songList-container {
     flex-grow: 1;
 }

@@ -13,6 +13,7 @@
         init(view, model) {
             this.view = view
             this.model = model
+            this.active()
             this.view.render(this.model.data)
             window.eventHub.on('upload', (data)=>{
                 this.active()
