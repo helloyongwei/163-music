@@ -45,14 +45,9 @@
             this.view = view
             this.model = model
             this.view.render(this.model.data)
-            this.getAllSongs()
-            this.bindEventHub()
             this.bindEvents()
-            window.eventHub.on('create', (songData)=>{
-                this.model.data.songs.push(songData)
-                this.view.render(this.model.data)
-            })
-            
+            this.bindEventHub()
+            this.getAllSongs()
         },
         getAllSongs() {
             return this.model.find().then(()=>{
@@ -78,6 +73,13 @@
         },
         bindEventHub(){
             window.eventHub.on('upload', ()=>{
+                this.view.clearActive()
+            })
+            window.eventHub.on('create', (songData)=>{
+                this.model.data.songs.push(songData)
+                this.view.render(this.model.data)
+            })
+            window.eventHub.on('new', ()=>{
                 this.view.clearActive()
             })
         }
