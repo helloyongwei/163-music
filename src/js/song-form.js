@@ -85,12 +85,11 @@
                 needs.map((string)=>{
                     data[string] = this.view.$el.find(`[name="${string}"]`).val()
                 })
-                
                 this.model.create(data)
                     .then(()=>{
                         this.view.reset()
                         let string = JSON.stringify(this.model.data)
-                        let object = JSON.parse(sting)
+                        let object = JSON.parse(string)
                         window.eventHub.emit('create', object)
                     })
             })
