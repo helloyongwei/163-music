@@ -19,7 +19,7 @@
                 let tabName = $li.attr('data-tab-name')
                 $li.addClass('active')
                     .siblings().removeClass('active')
-                window.eventhub.emit('selectTab', tabName)
+                window.eventHub.emit('selectTab', tabName)
             })
         }
     }

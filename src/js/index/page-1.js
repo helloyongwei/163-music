@@ -2,7 +2,7 @@
     let view = {
         el: '.page-1',
         init(){
-            this.el = $(this.el)
+            this.$el = $(this.el)
         },
         show(){
             this.$el.addClass('active')
