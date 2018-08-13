@@ -55,6 +55,8 @@
         update(data){
             console.log('data')
             console.log(data)
+            console.log('this.data.id')
+            console.log(this.data.id)
             var song = AV.Object.createWithoutData('Song', this.data.id)
             song.set('name', data.name)
             song.set('singer', data.singer)
