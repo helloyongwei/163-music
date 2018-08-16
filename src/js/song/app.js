@@ -1,25 +1,31 @@
 {
     let view = {
         el: '#app',
+        init(){
+            this.$el = $(this.el)
+        },
         render(data) {
             let {song, status} = data
-           $(this.el).css('background-image', `url(${song.cover})`)
-           $(this.el).find('img.cover').attr('src', song.cover)
-           $(this.el).find('.song-description > h1')[0].innerText = song.name
-           if ($(this.el).find('audio').attr('src') !== song.url) {
-            $(this.el).find('audio').attr('src', song.url)
+           this.$el.css('background-image', `url(${song.cover})`)
+           this.$el.find('img.cover').attr('src', song.cover)
+           this.$el.find('.song-description > h1').text(song.name)
+           if (this.$el.find('audio').attr('src') !== song.url) {
+            let audio = this.$el.find('audio').attr('src', song.url).get(0)
+            audio.onended = () => {
+                window.eventHub.emit('songEnd')
+            }
            }
            if (status === 'playing') {
-               $(this.el).find('.disc-container').addClass('playing')
+               this.$el.find('.disc-container').addClass('playing')
            } else {
-               $(this.el).find('.disc-container').removeClass('playing')
+               this.$el.find('.disc-container').removeClass('playing')
            }
         },
         play(){
-            $(this.el).find('audio')[0].play()
+            this.$el.find('audio')[0].play()
         },
         pause(){
-            $(this.el).find('audio')[0].pause()
+            this.$el.find('audio')[0].pause()
         }
     }
     let model = {
@@ -51,6 +57,11 @@
                 this.view.play()
             })
             $(this.view.el).on('click', '.icon-pause', ()=>{
+                this.model.data.status = 'pasued'
+                this.view.render(this.model.data)
+                this.view.pause()
+            })
+            window.eventHub.on('songEnd', ()=>{
                 this.model.data.status = 'pasued'
                 this.view.render(this.model.data)
                 this.view.pause()
